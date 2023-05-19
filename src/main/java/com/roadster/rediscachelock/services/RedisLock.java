@@ -11,8 +11,8 @@ public class RedisLock {
 
     RedisProfileLocks locks;
 
-    private TokenLock getLock(String token) {
-        return this.locks.get(token);
+    private TokenLock getLock(String key) {
+        return this.locks.get(key);
     }
 
     public void doSomething(String key){

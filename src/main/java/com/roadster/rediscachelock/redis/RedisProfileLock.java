@@ -1,5 +1,6 @@
 package com.roadster.rediscachelock.redis;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.redisson.api.RLock;
@@ -10,22 +11,18 @@ import java.util.concurrent.TimeUnit;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class RedisProfileLock implements TokenLock {
 
     private RedissonClient redissonClient;
 
     private String key;
 
-    public RedisProfileLock(RedissonClient redissonClient, String key) {
-        this.redissonClient = redissonClient;
-        this.key = key;
-    }
-
     public boolean lock() {
         try {
             return redisLock().tryLock(
                     0,
-                    100L,
+                    100L,//could come from a property
                     TimeUnit.SECONDS);
         } catch (Exception e) {
             System.out.println("An error occurred while trying to get the lock!");
