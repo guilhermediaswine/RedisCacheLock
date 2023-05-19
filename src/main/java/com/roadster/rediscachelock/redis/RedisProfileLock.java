@@ -1,7 +1,5 @@
 package com.roadster.rediscachelock.redis;
 
-import com.roadster.rediscachelock.config.RedissonSpringDataConfig;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.redisson.api.RLock;
@@ -18,9 +16,9 @@ public class RedisProfileLock implements TokenLock {
 
     private String key;
 
-    public RedisProfileLock(RedissonClient redissonClient, String token) {
+    public RedisProfileLock(RedissonClient redissonClient, String key) {
         this.redissonClient = redissonClient;
-        this.key = token;
+        this.key = key;
     }
 
     public boolean lock() {
@@ -30,18 +28,16 @@ public class RedisProfileLock implements TokenLock {
                     100L,
                     TimeUnit.SECONDS);
         } catch (Exception e) {
-            System.out.println("Um erro aconteceu ao tentar obter o lock ");
+            System.out.println("An error occurred while trying to get the lock!");
         }
-
         return true;
     }
-
 
     public void release() {
         try {
             redisLock().unlock();
         } catch (Exception e) {
-            System.out.println("Um erro aconteceu ao tentar dar o release do lock ");
+            System.out.println("An error occurred when trying to release the lock!");
         }
     }
 

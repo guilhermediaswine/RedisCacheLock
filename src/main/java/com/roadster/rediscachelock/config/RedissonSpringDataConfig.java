@@ -3,7 +3,6 @@ package com.roadster.rediscachelock.config;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
-import org.redisson.spring.data.connection.RedissonConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,11 +17,6 @@ public class RedissonSpringDataConfig {
 
     public RedissonSpringDataConfig(@Value("classpath:/redisson.yaml") Resource configFile) {
         this.configFile = configFile;
-    }
-
-    @Bean
-    public RedissonConnectionFactory redissonConnectionFactory(RedissonClient redisson) {
-        return new RedissonConnectionFactory(redisson);
     }
 
     @Bean(destroyMethod = "shutdown")

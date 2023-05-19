@@ -1,20 +1,21 @@
-package com.roadster.rediscachelock.redis;
+package com.roadster.rediscachelock.services;
 
+import com.roadster.rediscachelock.redis.RedisProfileLocks;
+import com.roadster.rediscachelock.redis.TokenLock;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class ConcurrentProfileServiceImpl {
+public class RedisLock {
 
-    EnableControlProfileLocks locks;
+    RedisProfileLocks locks;
 
     private TokenLock getLock(String token) {
         return this.locks.get(token);
     }
 
-    public void main(String key){
+    public void doSomething(String key){
         TokenLock lock = getLock(key);
         if(lock.lock()){
             try{
